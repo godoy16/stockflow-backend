@@ -21,3 +21,4 @@ Tareas realizadas en el proyecto:
 
 Pendientes:
 1. Crear Test Unitarios 
+2. Configuracio completa de la documentacion con swagger.
