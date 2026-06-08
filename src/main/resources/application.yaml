@@ -1,3 +1,55 @@
 spring:
   application:
     name: demo
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=Oracle
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    hikari:
+      pool-name: StockFlowHikariPool
+      minimum-idle: 10 # 5 conexiones disponibles activas para una aplicacion con un trafico concurrente.
+      maximum-pool-size: 30 # 10 conexiones maximas que puede tener activas duplica el doble a la minimas activas.
+      idle-timeout: 600000 
+      connection-timeout: 30000
+      max-lifetime: 1700000 #tiempo maximo de la conexion
+      validation-timeout: 5000
+      leak-detection-threshold: 0 # NO es necesario detectar errores de conexiones del pool de conexiones.
+  jpa:
+    hibernate:
+        ddl-auto: none
+  sql:
+    init:
+      mode: always
+resilience4j:
+  ratelimiter:
+    instances:
+      historyRateLimiter:
+        limitForPeriod: 10
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0
+  retry:
+    instances:
+      movementRetry:
+        maxAttempts: 3
+        waitDuration: 1s
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,info
+
+  endpoint:
+    health:
+      show-details: always
+  info:
+     app:
+      name: StockFlow
+      version: 1.0.0
+      description: StockFlow
+server:
+  port: 8080
+  servlet:
+    context-path: /stockflow
