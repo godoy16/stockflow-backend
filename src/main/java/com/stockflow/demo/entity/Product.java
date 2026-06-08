@@ -1,7 +1,7 @@
 package com.stockflow.demo.entity;
 
 
-import com.stockflow.demo.exception.MethodArgumentNotValidException;
+import com.stockflow.demo.exception.BussinesValidationException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -56,16 +56,16 @@ public class Product {
 	
 	public void addStock(int quantity) {
 		if(quantity<=0) {
-			throw new MethodArgumentNotValidException("La cantidad a agregar debe ser mayoy a cero");
+			throw new BussinesValidationException("La cantidad a agregar debe ser mayoy a cero");
 		}
 		this.currentStock+=quantity;
 	}
 	public void removeStok(int quantity) {
 		if(quantity<=0) {
-			throw new MethodArgumentNotValidException("La cantidad de restar debe ser mayor a cero.");
+			throw new BussinesValidationException("La cantidad de restar debe ser mayor a cero.");
 		}
 		if(this.currentStock<quantity) {
-			throw new MethodArgumentNotValidException("Cantidad insuficiente de Stock para realizar la operacion.");
+			throw new BussinesValidationException("Cantidad insuficiente de Stock para realizar la operacion.");
 		}
 		this.currentStock-=quantity;
 	}

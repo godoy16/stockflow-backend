@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -16,8 +17,12 @@ public class ExceptionHadler {
 	public ResponseEntity<ErrorResponse> productNotFound(ProductNotFoudException ex, HttpServletRequest request){
 		return buildResponse(HttpStatus.NOT_FOUND,ex.getMessage(),request.getRequestURI());
 	}
+	@ExceptionHandler(BussinesValidationException.class)
+	public ResponseEntity<ErrorResponse> methodArgumentNoValid(BussinesValidationException ex, HttpServletRequest request){
+		return buildResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),request.getRequestURI());
+	}
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ErrorResponse> methodArgumentNoValid(MethodArgumentNotValidException ex, HttpServletRequest request){
+	public ResponseEntity<ErrorResponse> fieldValidationException(MethodArgumentNotValidException ex, HttpServletRequest request){
 		return buildResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),request.getRequestURI());
 	}
 	@ExceptionHandler(GeneralException.class)
