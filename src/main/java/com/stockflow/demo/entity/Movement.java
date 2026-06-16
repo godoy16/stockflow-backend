@@ -1,5 +1,7 @@
 package com.stockflow.demo.entity;
 
+import java.sql.Timestamp;
+
 import com.stockflow.demo.enums.MovementType;
 import com.stockflow.demo.enums.Severity;
 
@@ -46,5 +48,7 @@ public class Movement {
 	@Column(name="reason")
 	@Size(max=100,message="La razon no debe superar 100 caracteres.")
 	private String reason;
+	@Column(name="timestap",insertable = false, updatable = false)
+	private Timestamp timestap;
 
 }

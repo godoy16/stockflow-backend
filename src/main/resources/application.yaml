@@ -18,9 +18,12 @@ spring:
   jpa:
     hibernate:
         ddl-auto: none
+    defer-datasource-initialization: true
   sql:
     init:
       mode: always
+  
+  
 resilience4j:
   ratelimiter:
     instances:
@@ -53,3 +56,6 @@ server:
   port: 8080
   servlet:
     context-path: /stockflow
+
+
+#

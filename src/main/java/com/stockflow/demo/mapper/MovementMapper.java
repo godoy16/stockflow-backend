@@ -39,6 +39,7 @@ public class MovementMapper {
 				.quantity(movement.getQuantity())
 				.reason(movement.getReason())
 				.type(movement.getType())
+				.timestamp(movement.getTimestap())
 				.build();
 				
 	}
